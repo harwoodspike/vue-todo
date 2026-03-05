@@ -29,7 +29,5 @@ coverage
 
 *.tsbuildinfo
 
-# amplify
-.amplify
-amplify_outputs*
-amplifyconfiguration*
+# env
+.env
