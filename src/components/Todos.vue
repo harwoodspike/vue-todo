@@ -16,10 +16,9 @@ function listTodos() {
 }
 
 function createTodo() {
-  dataClass.createTodo({
-    content: window.prompt("Todo content")
-  }).then(() => {
-    // After creating a new todo, update the list of todos
+  const content = window.prompt("Todo content")
+  if (!content) return
+  dataClass.createTodo({ content, isDone: false }).then(() => {
     listTodos();
   });
 }
