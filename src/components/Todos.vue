@@ -1,24 +1,22 @@
 <script setup lang="ts">
 import '@/assets/main.css';
 import { onMounted, ref } from 'vue';
-import type { Schema } from '../../amplify/data/resource';
-import { generateClient } from 'aws-amplify/data';
 
-const client = generateClient<Schema>();
+import { type Todo, Data } from '@/services/data';
+
+const dataClass = new Data();
 
 // create a reactive reference to the array of todos
-const todos = ref<Array<Schema['Todo']["type"]>>([]);
+const todos = ref<Array<Todo>>([]);
 
 function listTodos() {
-  client.models.Todo.observeQuery().subscribe({
-    next: ({ items, isSynced }) => {
-      todos.value = items
-     },
-  }); 
+  dataClass.listTodos().then((value) => {
+    todos.value = value
+  });
 }
 
 function createTodo() {
-  client.models.Todo.create({
+  dataClass.createTodo({
     content: window.prompt("Todo content")
   }).then(() => {
     // After creating a new todo, update the list of todos
@@ -26,14 +24,13 @@ function createTodo() {
   });
 }
 
-  
 function deleteTodo(id: string) {
-  client.models.Todo.delete({ id })
+  dataClass.deleteTodo(id);
 }
 
 function setDone(id: string, done: boolean) {
-  client.models.Todo
-    .update({ id, isDone: done })
+  dataClass
+    .updateTodo(id, { isDone: done })
     .then(() => {
       listTodos();
     })
