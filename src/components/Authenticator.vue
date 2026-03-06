@@ -202,6 +202,7 @@ function signOut() {
   border: 1px solid #ccc;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   padding-bottom: 48px;
+  border-top: 3px solid #2e7d8f;
 }
 
 .auth-tabs {
@@ -216,6 +217,7 @@ function signOut() {
   font-weight: 700;
   background: none;
   border: none;
+  border-radius: 0;
   border-bottom: 3px solid transparent;
   cursor: pointer;
   color: #1a1a2e;
