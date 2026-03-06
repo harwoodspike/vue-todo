@@ -311,7 +311,7 @@ input:focus {
   font-size: 14px;
   font-weight: normal;
   text-decoration: none;
-  padding: 8px 0;
+  padding: 12px 0;
 }
 
 .forgot-link:hover {
