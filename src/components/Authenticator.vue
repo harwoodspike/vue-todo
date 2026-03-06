@@ -74,9 +74,11 @@ function createAccount() {
 function confirmEmail() {
   error.value = ''
   if (!pendingCognitoUser) {
-    error.value = 'Session expired. Please sign up again.'
-    tab.value = 'createAccount'
-    return
+    if (!email.value) {
+      error.value = 'Please enter the email address you signed up with.'
+      return
+    }
+    pendingCognitoUser = new CognitoUser({ Username: email.value, Pool: userPool })
   }
   pendingCognitoUser.confirmRegistration(confirmationCode.value, true, (err) => {
     if (err) {
@@ -144,9 +146,13 @@ function signOut() {
       </form>
 
       <form v-else-if="tab === 'confirm'" @submit.prevent="confirmEmail">
+        <div v-if="!email" class="field">
+          <label for="confirm-email">Email</label>
+          <input id="confirm-email" v-model="email" type="email" placeholder="Enter your Email" required />
+        </div>
         <div class="field">
           <label for="code">Confirmation Code</label>
-          <p class="confirm-hint">We sent a code to {{ email }}. Enter it below.</p>
+          <p v-if="email" class="confirm-hint">We sent a code to {{ email }}. Enter it below.</p>
           <input id="code" v-model="confirmationCode" type="text" placeholder="Enter your code" required />
         </div>
         <p v-if="error" class="error">{{ error }}</p>
@@ -184,6 +190,7 @@ function signOut() {
         </div>
         <p v-if="error" class="error">{{ error }}</p>
         <button type="submit" class="submit-btn">Create Account</button>
+        <a href="#" class="forgot-link" @click.prevent="tab = 'confirm'">Already have a confirmation code?</a>
       </form>
     </div>
   </div>
