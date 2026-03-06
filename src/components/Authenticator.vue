@@ -189,7 +189,7 @@ function signOut() {
 
 <style scoped>
 .auth-bg {
-  min-height: 100vh;
+  height: 100vh;
   background: linear-gradient(to bottom, #7b5ea7, #d4c5e8);
   display: flex;
   align-items: center;
@@ -231,10 +231,10 @@ function signOut() {
 }
 
 form {
-  padding: 32px 48px 0;
+  padding: 24px 48px 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .field {
