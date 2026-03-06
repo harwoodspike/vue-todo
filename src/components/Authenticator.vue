@@ -306,6 +306,7 @@ input:focus {
   text-align: center;
   color: #2e7d8f;
   font-size: 14px;
+  font-weight: normal;
   text-decoration: none;
 }
 
