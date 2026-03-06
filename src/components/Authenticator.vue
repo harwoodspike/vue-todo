@@ -33,7 +33,8 @@ const existingUser = userPool.getCurrentUser()
 if (existingUser) {
   existingUser.getSession((err: Error | null, session: CognitoUserSession | null) => {
     if (!err && session?.isValid()) {
-      user.value = { signInDetails: { loginId: existingUser.getUsername() } }
+      const loginId = session.getIdToken().payload.email ?? existingUser.getUsername()
+      user.value = { signInDetails: { loginId } }
     }
   })
 }
