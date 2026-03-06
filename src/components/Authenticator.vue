@@ -7,6 +7,7 @@ import {
   AuthenticationDetails,
   type CognitoUserSession,
 } from 'amazon-cognito-identity-js'
+import { setToken } from '@/services/auth-token'
 
 export interface AuthUser {
   signInDetails: {
@@ -33,6 +34,7 @@ const existingUser = userPool.getCurrentUser()
 if (existingUser) {
   existingUser.getSession((err: Error | null, session: CognitoUserSession | null) => {
     if (!err && session?.isValid()) {
+      setToken(session.getIdToken().getJwtToken())
       const loginId = session.getIdToken().payload.email ?? existingUser.getUsername()
       user.value = { signInDetails: { loginId } }
     }
@@ -50,7 +52,8 @@ function signIn() {
     Pool: userPool,
   })
   cognitoUser.authenticateUser(authDetails, {
-    onSuccess() {
+    onSuccess(session) {
+      setToken(session.getIdToken().getJwtToken())
       user.value = { signInDetails: { loginId: email.value } }
     },
     onFailure(err) {
@@ -93,6 +96,7 @@ function confirmEmail() {
 
 function signOut() {
   userPool.getCurrentUser()?.signOut()
+  setToken(null)
   user.value = null
   email.value = ''
   password.value = ''

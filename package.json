@@ -15,6 +15,7 @@
     "vue": "^3.4.21"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260305.1",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.5",
     "@vitejs/plugin-vue": "^5.0.4",
