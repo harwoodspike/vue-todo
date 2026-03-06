@@ -36,7 +36,7 @@ class Data {
         }).then(() => undefined)
     }
 
-    createTodo(data: Omit<Todo, 'id'>): Promise<void> {
+    createTodo(data: Pick<Todo, 'content' | 'isDone'>): Promise<void> {
         return fetch('/api/todos', {
             method: 'POST',
             headers: authHeaders({ 'Content-Type': 'application/json' }),
