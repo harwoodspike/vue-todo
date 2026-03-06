@@ -4,6 +4,8 @@ export interface Todo {
     id: string
     content: string
     isDone: boolean
+    createdAt: string
+    updatedAt: string
 }
 
 function authHeaders(extra: Record<string, string> = {}): Record<string, string> {

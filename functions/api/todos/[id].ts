@@ -6,6 +6,8 @@ interface TodoRow {
   id: string
   content: string
   isDone: number
+  createdAt: string
+  updatedAt: string
 }
 
 function getUserId(request: Request): string | null {
@@ -25,7 +27,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ params, request, env })
   if (!userId) return new Response('Unauthorized', { status: 401 })
   const id = params.id as string
   const row = await env.DB.prepare(
-    'SELECT id, content, isDone FROM todos WHERE id = ? AND userId = ?'
+    'SELECT id, content, isDone, createdAt, updatedAt FROM todos WHERE id = ? AND userId = ?'
   ).bind(id, userId).first<TodoRow>()
   if (!row) return new Response('Not found', { status: 404 })
   return Response.json({ ...row, isDone: row.isDone === 1 })
@@ -49,6 +51,8 @@ export const onRequestPatch: PagesFunction<Env> = async ({ params, request, env 
   if (data.content !== undefined) { fields.push('content = ?'); values.push(data.content) }
   if (data.isDone !== undefined) { fields.push('isDone = ?'); values.push(data.isDone ? 1 : 0) }
   if (fields.length === 0) return new Response('No fields to update', { status: 400 })
+  fields.push('updatedAt = ?')
+  values.push(new Date().toISOString())
   values.push(id, userId)
   await env.DB.prepare(
     `UPDATE todos SET ${fields.join(', ')} WHERE id = ? AND userId = ?`
