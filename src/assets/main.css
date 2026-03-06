@@ -1,5 +1,6 @@
-body {
+html, body, #app {
   margin: 0;
+  height: 100%;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 

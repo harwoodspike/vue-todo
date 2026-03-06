@@ -190,7 +190,7 @@ function signOut() {
 <style scoped>
 .auth-bg {
   height: 100vh;
-  background: linear-gradient(to bottom, #7b5ea7, #d4c5e8);
+  background: linear-gradient(to bottom, #9b6fc4, #ffffff);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -256,7 +256,7 @@ input[type="text"] {
   font-size: 15px;
   border: 1px solid #bbb;
   border-radius: 6px;
-  background: #fafafa;
+  background: #ffffff;
   outline: none;
   width: 100%;
   box-sizing: border-box;
@@ -289,7 +289,7 @@ input:focus {
 }
 
 .submit-btn {
-  padding: 16px;
+  padding: 10px 16px;
   background: #2e7d8f;
   color: white;
   font-size: 16px;
@@ -305,11 +305,13 @@ input:focus {
 }
 
 .forgot-link {
+  display: block;
   text-align: center;
   color: #2e7d8f;
   font-size: 14px;
   font-weight: normal;
   text-decoration: none;
+  padding: 8px 0;
 }
 
 .forgot-link:hover {
