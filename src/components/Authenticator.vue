@@ -102,7 +102,7 @@ function signOut() {
   <div v-if="user">
     <slot :user="user" :signOut="signOut" />
   </div>
-  <div v-else class="auth-bg">
+  <div v-else class="auth-screen">
     <div class="auth-card">
       <div v-if="tab !== 'confirm'" class="auth-tabs">
         <button :class="['tab', { active: tab === 'signIn' }]" @click="tab = 'signIn'">Sign In</button>
@@ -197,9 +197,8 @@ function signOut() {
 </template>
 
 <style scoped>
-.auth-bg {
+.auth-screen {
   height: 100vh;
-  background: linear-gradient(to bottom, #9b6fc4, #ffffff);
   display: flex;
   align-items: center;
   justify-content: center;
