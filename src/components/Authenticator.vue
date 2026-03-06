@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import {
   CognitoUserPool,
   CognitoUser,
+  CognitoUserAttribute,
   AuthenticationDetails,
   type CognitoUserSession,
 } from 'amazon-cognito-identity-js'
@@ -59,7 +60,8 @@ function signIn() {
 
 function createAccount() {
   error.value = ''
-  userPool.signUp(email.value, password.value, [], [], (err, result) => {
+  const emailAttr = new CognitoUserAttribute({ Name: 'email', Value: email.value })
+  userPool.signUp(email.value, password.value, [emailAttr], [], (err, result) => {
     if (err) {
       error.value = err.message ?? 'Sign up failed'
       return
@@ -198,7 +200,7 @@ function signOut() {
 
 .auth-card {
   background: white;
-  width: 600px;
+  width: 500px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   padding-bottom: 48px;
